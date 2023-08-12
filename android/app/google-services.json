@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "281921997914",
+    "project_id": "waterloo-masjid-app-a1dd9",
+    "storage_bucket": "waterloo-masjid-app-a1dd9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:281921997914:android:50121318ee037333861c63",
+        "android_client_info": {
+          "package_name": "com.waterloomasjid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "281921997914-g1bj49q0jsq4bs2ouscngvqkr1lkps7e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-MsyzVEB0rxoJ1U3WfXa9NkMF6npLxVw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "281921997914-g1bj49q0jsq4bs2ouscngvqkr1lkps7e.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "281921997914-vresitbs1s2hv026iak0hi3istnlo2d1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.waterloomasjid"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
