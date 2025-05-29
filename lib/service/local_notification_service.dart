@@ -1,17 +1,19 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:my_masjid/models/salah_model.dart';
 import 'package:my_masjid/models/salah_repo.dart';
+import 'package:my_masjid/ui/shared_ui/styles.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 
 class LocalNotificationService {
-  LocalNotificationService();
+  // LocalNotificationService();
 
   final localNotificationService = FlutterLocalNotificationsPlugin();
   Future<void> init() async {
     tz.initializeTimeZones();
     const AndroidInitializationSettings androidInitializationSettings =
-        AndroidInitializationSettings('mipmap/launcher_icon.png');
+        AndroidInitializationSettings('notification_icon');
 
     var iOSInitializationSettings = DarwinInitializationSettings(
         requestAlertPermission: true,
@@ -26,18 +28,18 @@ class LocalNotificationService {
       settings,
       onDidReceiveNotificationResponse:
           (NotificationResponse notificationResponse) async {
-        print('in onrecievenotification ${notificationResponse.id}');
+        debugPrint('in onrecievenotification ${notificationResponse.id}');
       },
     );
   }
 
   void onSelectNotification(String? payload) {
-    print('payload : $payload');
+    debugPrint('payload : $payload');
   }
 
   void onDidReceiveLocalNotification(
       int id, String? title, String? body, String? payload) {
-    print('id: $id');
+    debugPrint('id: $id');
   }
 
   Future<NotificationDetails> notificationDetails() async {
@@ -46,6 +48,9 @@ class LocalNotificationService {
             channelDescription: 'description',
             importance: Importance.max,
             priority: Priority.high,
+            // color: Color(0xFF003C4B),
+            color: primaryColor,
+            // icon: '@dawable/notification_icon', //'@mipmap/launcher_icon',
             playSound: true);
     const DarwinNotificationDetails iOSNotificationDetails =
         DarwinNotificationDetails();
@@ -67,18 +72,19 @@ class LocalNotificationService {
     final details = await notificationDetails();
     await localNotificationService.zonedSchedule(id, title, body,
         tz.TZDateTime.from(notificationTime, tz.local), details,
-        androidAllowWhileIdle: true,
+        // androidAllowWhileIdle: true,
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime);
   }
 
-  // Future<void> cancelAllNotifications() async {
-  //   await localNotificationService.cancelAll();
-  // }
+  Future<void> cancelAllNotifications() async {
+    await localNotificationService.cancelAll();
+  }
 
   setSalahNotifications() async {
     final salahRepo = SalahRepo();
-    print('notification setting started');
+    debugPrint('notification setting started');
     init();
     await localNotificationService.cancelAll();
     DateTime currentDate;
@@ -87,7 +93,7 @@ class LocalNotificationService {
     //     body: 'this is a notification',
     //     id: 1,
     //     title: 'testing local notification');
-    //print('salah notification');
+    // print('salah notification');
     for (var i = 0; i < 11; i++) {
       var salahNum = 1;
       currentDate = DateTime.now().add(Duration(days: i));
@@ -107,6 +113,8 @@ class LocalNotificationService {
             notificationDate.subtract(const Duration(minutes: 10));
         // set notification for calculated time > current time and not Jumaa 2
         if (notificationDate.compareTo(DateTime.now()) > 0) {
+          debugPrint(
+              'notification set for $key at $value on $notificationDate');
           showScheduledNotification(
               id: (i * 5 + salahNum),
               title: '$key at $value',

@@ -8,7 +8,7 @@ import 'package:my_masjid/ui/shared_ui/ms_text.dart';
 import 'package:my_masjid/ui/styles/styles.dart';
 
 class DetailedNotification extends StatelessWidget {
-  const DetailedNotification({Key? key}) : super(key: key);
+  const DetailedNotification({super.key});
   @override
   Widget build(BuildContext context) {
     List<String> posters = [
@@ -99,9 +99,9 @@ class DetailedNotification extends StatelessWidget {
 
 class DetailedNotificationHeader extends StatelessWidget {
   const DetailedNotificationHeader({
-    Key? key,
+    super.key,
     required this.sizeConfig,
-  }) : super(key: key);
+  });
 
   final SizeConfig sizeConfig;
 

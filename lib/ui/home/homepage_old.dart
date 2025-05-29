@@ -5,7 +5,7 @@ import 'package:my_masjid/ui/home/home_viewmodel.dart';
 import 'package:my_masjid/ui/styles/styles.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({Key? key}) : super(key: key);
+  HomePage({super.key});
 
   final _viewModel = Get.put(SalahHomeViewModel());
   @override

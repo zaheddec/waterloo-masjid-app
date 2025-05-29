@@ -9,8 +9,8 @@ import 'package:my_masjid/service/local_notification_service.dart';
 import 'package:my_masjid/service/push_notification_service.dart';
 
 Future<void> backgroundHandler(RemoteMessage message) async {
-  print(message.data.toString());
-  print(message.notification!.title);
+  // print(message.data.toString());
+  // print(message.notification!.title);
 }
 
 class AppStartupViewModel extends GetxController {

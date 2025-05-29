@@ -5,8 +5,8 @@ import 'package:my_masjid/ui/shared_ui/custom_spaces.dart';
 import 'package:my_masjid/ui/styles/styles.dart';
 
 class EventDetailsCard extends StatelessWidget {
-  const EventDetailsCard({Key? key, required this.height, required this.width})
-      : super(key: key);
+  const EventDetailsCard(
+      {super.key, required this.height, required this.width});
   final double height;
   final double width;
   @override
@@ -16,12 +16,13 @@ class EventDetailsCard extends StatelessWidget {
       height: height, //68,
       width: width, //295,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius:
+            BorderRadius.circular(8 * sizeConfig.screenHeightFactor()),
         // border: Border.all(color: level3, width: 0.5),
         color: const Color(0XFFF2FCFF),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: EdgeInsets.all(10.0 * sizeConfig.screenHeightFactor()),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

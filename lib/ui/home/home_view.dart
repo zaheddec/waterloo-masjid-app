@@ -10,7 +10,7 @@ import 'package:my_masjid/ui/styles/styles.dart';
 import 'prayer_card_view.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({Key? key}) : super(key: key);
+  HomePage({super.key});
 
   final _viewModel = Get.put(SalahHomeViewModel());
   final PageController pageController = PageController(initialPage: 365);
@@ -116,11 +116,11 @@ class HomeHeader extends StatelessWidget {
   final sizeConfig = Get.find<SizeConfig>();
 
   HomeHeader({
-    Key? key,
+    super.key,
     this.date = '',
     this.day = '',
     this.pageController,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -145,7 +145,7 @@ class HomeHeader extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Row(children: [
+              Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
                 SvgPicture.asset(
                   'assets/splash/start_logo.svg',
                   semanticsLabel: 'splash header',
@@ -186,7 +186,7 @@ class HomeHeader extends StatelessWidget {
                     ),
                   ],
                 ),
-                horizontalSpace(90),
+                horizontalSpace(100 * sizeConfig.screenHeightFactor()),
                 GestureDetector(
                   child: Image.asset(
                     'assets/icons/notification.png',

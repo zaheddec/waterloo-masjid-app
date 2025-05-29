@@ -7,13 +7,12 @@ import 'package:my_masjid/ui/styles/styles.dart';
 
 class PrayerCard extends StatelessWidget {
   PrayerCard(
-      {Key? key,
+      {super.key,
       this.salahName = '',
       this.salahTime = '',
       this.iqamahTime = '',
       this.logo = '',
-      this.isCurrentSalah = false})
-      : super(key: key);
+      this.isCurrentSalah = false});
   final String salahName;
   final String salahTime;
   final String iqamahTime;
@@ -47,21 +46,12 @@ class PrayerCard extends StatelessWidget {
                 width: 13 * sizeConfig.screenWidthFactor(),
                 color: primaryColor,
               ),
-              // SvgPicture.asset(
-              //   'assets/icons/Maghrib.svg',
-              //   semanticsLabel: 'header location',
-              //   color: Colors.red,
-              //   height: 13 * sizeConfig.screenHeightFactor(),
-              //   width: 13 * sizeConfig.screenWidthFactor(),
-              // ),
             ),
           ],
         ),
         Padding(
           padding: EdgeInsets.only(
             left: 20 * sizeConfig.screenWidthFactor(),
-            // right: 20 * sizeConfig.screenWidthFactor(),
-            // bottom: 0 * sizeConfig.screenHeightFactor()
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,

@@ -6,7 +6,7 @@ import 'package:my_masjid/ui/styles/styles.dart';
 import 'package:pwa_update_listener/pwa_update_listener.dart';
 
 class AppStartupView extends StatelessWidget {
-  const AppStartupView({Key? key}) : super(key: key);
+  const AppStartupView({super.key});
 
   @override
   Widget build(BuildContext context) {

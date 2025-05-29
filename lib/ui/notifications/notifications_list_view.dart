@@ -8,7 +8,7 @@ import 'package:my_masjid/ui/shared_ui/ms_text.dart';
 import 'package:my_masjid/ui/styles/styles.dart';
 
 class NotificationsList extends StatelessWidget {
-  const NotificationsList({Key? key}) : super(key: key);
+  const NotificationsList({super.key});
   @override
   Widget build(BuildContext context) {
     final sizeConfig = Get.find<SizeConfig>();
@@ -57,13 +57,13 @@ class NotificationsList extends StatelessWidget {
 }
 
 class EventCard extends StatelessWidget {
-  const EventCard({Key? key}) : super(key: key);
+  const EventCard({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 165 * sizeConfig.screenHeightFactor(),
-      width: 335 * sizeConfig.screenHeightFactor(),
+      height: 170 * sizeConfig.screenHeightFactor(),
+      width: 335 * sizeConfig.screenWidthFactor(),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
@@ -72,7 +72,7 @@ class EventCard extends StatelessWidget {
         color: Colors.white,
       ),
       child: Padding(
-        padding: EdgeInsets.all(20.0 * sizeConfig.screenWidthFactor()),
+        padding: EdgeInsets.all(20.0 * sizeConfig.screenHeightFactor()),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -88,7 +88,7 @@ class EventCard extends StatelessWidget {
             verticalSpace(12),
             EventDetailsCard(
               height: 68 * sizeConfig.screenHeightFactor(),
-              width: 295 * sizeConfig.screenWidthFactor(),
+              width: 297 * sizeConfig.screenWidthFactor(),
             ),
           ],
         ),

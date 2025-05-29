@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_masjid/models/salah_model.dart';
 import 'package:my_masjid/models/salah_repo.dart';
-// import 'package:my_masjid/service/local_notification_service.dart';
+import 'package:my_masjid/service/local_notification_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SalahHomeViewModel extends GetxController {
   final _salah = Get.put(SalahRepo()); // Get.find<SalahRepo>();
-  // final _localNotifications = Get.find<LocalNotificationService>();
+  final _localNotifications = Get.find<LocalNotificationService>();
   final salah = SalahTimeModel().obs;
   RxList<String> iqamaName = ['Fajr', 'Dohor', 'Asr', 'Maghrib', 'Isha'].obs;
   RxString currentSalah = ''.obs;
@@ -37,19 +38,27 @@ class SalahHomeViewModel extends GetxController {
     'December'
   ];
   final PageController pageController = PageController(initialPage: 365);
+  var notificationsEnabled = true.obs;
   @override
   onInit() async {
     getDailySalahTime(currentDate);
-    // print(salah.toString());
+    await loadNotificationPreference();
     super.onInit();
   }
 
-  // @override
-  // void onReady() async {
-  //   // await _localNotifications.setSalahNotifications();
-  //   // _localNotifications.showNotification(title: 'test', body: 'test 123');
-  //   super.onReady();
-  // }
+  @override
+  void onReady() async {
+    if (notificationsEnabled.value) {
+      await _localNotifications.setSalahNotifications();
+    }
+    _localNotifications.showNotification(title: 'test', body: 'test 123');
+    // _localNotifications.showScheduledNotification(
+    //     id: 1,
+    //     title: 'test schduled notification',
+    //     body: 'test 123',
+    //     notificationTime: DateTime.now().add(Duration(seconds: 10)));
+    super.onReady();
+  }
 
   Future<void> getDailySalahTime(currentDate) async {
     this.currentDate = currentDate;
@@ -118,5 +127,10 @@ class SalahHomeViewModel extends GetxController {
     }
     // print(direction);
     getDailySalahTime(currentDate);
+  }
+
+  Future<void> loadNotificationPreference() async {
+    final prefs = await SharedPreferences.getInstance();
+    notificationsEnabled.value = prefs.getBool('notificationsEnabled') ?? true;
   }
 }

@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_masjid/service/responsive_factors.dart';
+import 'package:my_masjid/ui/settings/settings_viewmodel.dart';
 import 'package:my_masjid/ui/shared_ui/custom_spaces.dart';
 import 'package:my_masjid/ui/shared_ui/ms_text.dart';
 import 'package:my_masjid/ui/styles/styles.dart';
 
 class Settings extends StatelessWidget {
-  const Settings({Key? key}) : super(key: key);
+  Settings({super.key});
+  final viewModel = Get.put(SettingsViewModel());
   @override
   Widget build(BuildContext context) {
     final sizeConfig = Get.find<SizeConfig>();
@@ -36,26 +38,37 @@ class Settings extends StatelessWidget {
           ),
           verticalSpace(10),
           const Divider(),
-          Expanded(
-            child: ListView(
-              children: [
-                verticalSpace(34),
-                const SettingsCard(
-                  icon: 'assets/icons/menu-board.png',
-                  title: 'Event Reminder',
-                  subTitle: 'Lorem Ipsum dolor sit amet',
-                ),
-                verticalSpace(34),
-                const SettingsCard(
-                  icon: 'assets/icons/moon.png',
-                  title: 'Switch to dark mode',
-                ),
-                verticalSpace(34),
-                const SettingsCard(
-                  icon: 'assets/icons/notification-settings.png',
-                  title: 'Push Notifications',
-                ),
-              ],
+          Obx(
+            () => Expanded(
+              child: ListView(
+                children: [
+                  verticalSpace(34),
+                  const SettingsCard(
+                    icon: 'assets/icons/menu-board.png',
+                    title: 'Event Reminder',
+                    subTitle: 'Remind me of upcoming events',
+                  ),
+                  verticalSpace(34),
+                  const SettingsCard(
+                    icon: 'assets/icons/moon.png',
+                    title: 'Switch to dark mode',
+                    subTitle: 'Save your eyes from strain',
+                  ),
+                  verticalSpace(34),
+                  SettingsCard(
+                    icon: 'assets/icons/notification-settings.png',
+                    title: 'Salah Notifications',
+                    subTitle: 'Get notified of iqamah times',
+                    switchFunc: (value) {
+                      viewModel.sharedPreferences
+                          .setBool('salahNotifications', value);
+                      viewModel.loadSettings();
+                      viewModel.updateSalahNotifications(value);
+                    },
+                    switchValue: viewModel.salahNotifications.value,
+                  ),
+                ],
+              ),
             ),
           ),
         ]
@@ -68,12 +81,17 @@ class Settings extends StatelessWidget {
 
 class SettingsCard extends StatelessWidget {
   const SettingsCard(
-      {Key? key, this.icon, this.switchFunc, this.title, this.subTitle})
-      : super(key: key);
+      {super.key,
+      this.icon,
+      this.switchFunc,
+      this.title,
+      this.subTitle,
+      this.switchValue});
   final String? icon;
   final Function? switchFunc;
   final String? title;
   final String? subTitle;
+  final bool? switchValue;
 
   @override
   Widget build(BuildContext context) {
@@ -107,8 +125,9 @@ class SettingsCard extends StatelessWidget {
           child: FittedBox(
             fit: BoxFit.contain,
             child: CupertinoSwitch(
-              value: true,
+              value: switchValue ?? false,
               onChanged: (value) {
+                switchFunc!(value);
                 // print(value);
               },
               activeColor: primaryColor,
