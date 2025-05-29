@@ -1,6 +1,6 @@
-# my_masjid
+# waterloo-masjid-app
 
-A new Flutter project.
+This repository contains the code for the Waterloo Masjid app.
 
 ## Getting Started
 
